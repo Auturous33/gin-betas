@@ -1,14 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"time"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
-// it begins
 func main() {
-	startTime := time.Now()
-	time.Sleep(10 * time.Second)
-	fmt.Println("hello, gin-betas!")
-	fmt.Printf("cost %f seconds\n", time.Since(startTime).Seconds())
+	r := gin.Default()
+
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"success": true,
+			"result":  "pong!!!",
+		})
+	})
+
+	r.Run(":8666")
 }
